@@ -24,7 +24,8 @@ class Home extends Component {
         />
 
         <TouchableOpacity style={styles.createButton} onPress={() => {
-          this.props.dispatch({type: "LOADING_START"})
+          // this.props.dispatch({type: "LOADING_START"})
+          this.props.navigation.navigate('Highlight');
         }}>
           <Text style={{color: 'white'}}>CREATE</Text>
         </TouchableOpacity>

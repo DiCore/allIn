@@ -27,7 +27,7 @@ class Highlight extends Component {
     }
   }
   componentDidMount(){
-    // CameraManager.startSession();
+    CameraManager.startSession();
     const subscription = calendarManagerEmitter.addListener(
       'EventResize',
       (event) => {

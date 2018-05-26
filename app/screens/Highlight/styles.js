@@ -20,5 +20,13 @@ export default EStyleSheet.create({
     height: 50,
     backgroundColor: 'rgba(50, 50, 50, 0.5)',
     flexDirection: 'row',
+  },
+  imagesWrap: {
+    width: "100%",
+    height: 150,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'red',
   }
 })

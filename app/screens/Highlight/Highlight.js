@@ -5,7 +5,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ScrollView,
+  Image
 } from 'react-native';
 import {NativeModules, NativeEventEmitter} from 'react-native';
 import CameraView from '../CameraView';
@@ -20,7 +22,8 @@ class Highlight extends Component {
     super(props)
     this.state = {
       width: window.width,
-      height: window.height
+      height: window.height,
+      images: [],
     }
   }
   componentDidMount(){
@@ -31,11 +34,27 @@ class Highlight extends Component {
         this.setState({width: event.width, height: event.height})
       }
     );
+    calendarManagerEmitter.addListener(
+      'EventHighlightGenerated',
+      (event) => {
+        console.log(event)
+        let newImages = this.state.images.slice(0);
+        newImages.push(event.imagePath);
+        this.setState({images: newImages});
+      }
+    );
   }
   render(){
     return (
       <View style={styles.container}>
         <CameraView style={{ width: this.state.width, height: this.state.height, position: 'absolute' }} />
+        <View style={styles.imagesWrap}>
+          <ScrollView horizontal={true} contentContainerStyle={{flexDirection:'row'}}>
+            {this.state.images.map((img, key) => {
+              return (<Image key={key} source={{uri: img}} resizeMode={'cover'} style={{width: 100}} />)
+            })}
+          </ScrollView>
+        </View>
         <View style={styles.buttonsWrap}>
           <TouchableOpacity style={styles.buttonItems} onPress={() => {
             CameraManager.generateHighlight(20)

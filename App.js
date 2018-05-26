@@ -14,8 +14,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 const window = Dimensions.get('window');
-import {NativeModules} from 'react-native';
+import {NativeModules, NativeEventEmitter} from 'react-native';
 var CameraManager = NativeModules.CameraManager;
+
+const calendarManagerEmitter = new NativeEventEmitter(CameraManager);
+
 import CameraView from './screens/CameraView'
 
 const instructions = Platform.select({
@@ -27,10 +30,25 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props){
+    super(props);
+    this.state = {
+      width: window.width,
+      height: window.height
+    }
+  }
+  componentDidMount(){
+    const subscription = calendarManagerEmitter.addListener(
+      'EventResize',
+      (event) => {
+        this.setState({width: event.width, height: event.height})
+      }
+    );
+  }
   render() {
     return (
       <View style={styles.container}>
-        <CameraView style={{ width: window.width, height: window.height, position: 'absolute' }} />
+        <CameraView style={{ width: this.state.width, height: this.state.height, position: 'absolute' }} />
         <TouchableOpacity onPress={() => {
           CameraManager.generateHighlight(20)
         }}>

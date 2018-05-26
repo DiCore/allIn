@@ -9,6 +9,7 @@
 #import "CameraManager.h"
 #import "CameraView.h"
 #import "CaptureSessionAssetWriterCoordinator.h"
+#import "AppDelegate.h"
 
 @interface CameraManager () <CaptureSessionCoordinatorDelegate>
 
@@ -92,7 +93,9 @@ RCT_EXPORT_METHOD(stopSession)
 }
 
 - (void)handleRootViewResize {
-  [self sendEventWithName:@"EventResize" body:nil];
+  CGSize size = ((AppDelegate *)([UIApplication sharedApplication].delegate)).rootView.frame.size;
+  [self sendEventWithName:@"EventResize" body:@{@"width": [NSNumber numberWithInt: size.width],
+                                                @"height": [NSNumber numberWithInt:size.height] }];
 }
 
 @end

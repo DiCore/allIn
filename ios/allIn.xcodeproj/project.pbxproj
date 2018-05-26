@@ -41,6 +41,7 @@
 		974F645420B96EC10067DA39 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645320B96EC10067DA39 /* CameraView.m */; };
 		974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE41351C20B9A6A6004C5643 /* WatchManager.m */; };
 		AE69479520B98F6400C8625D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE69479320B98F6400C8625D /* Interface.storyboard */; };
 		AE69479720B98F6500C8625D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE69479620B98F6500C8625D /* Assets.xcassets */; };
 		AE69479E20B98F6600C8625D /* allInWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AE69479D20B98F6500C8625D /* allInWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -399,6 +400,9 @@
 		974F645820B96F390067DA39 /* CameraViewRCTViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraViewRCTViewManager.h; sourceTree = "<group>"; };
 		974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewRCTViewManager.m; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		AE41351B20B9A6A6004C5643 /* WatchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchManager.h; sourceTree = "<group>"; };
+		AE41351C20B9A6A6004C5643 /* WatchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatchManager.m; sourceTree = "<group>"; };
+		AE41354320B9ABFA004C5643 /* allIn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = allIn.entitlements; path = allIn/allIn.entitlements; sourceTree = "<group>"; };
 		AE69479120B98F6400C8625D /* allInWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = allInWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE69479420B98F6400C8625D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		AE69479620B98F6500C8625D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -556,6 +560,7 @@
 		13B07FAE1A68108700A75B9A /* allIn */ = {
 			isa = PBXGroup;
 			children = (
+				AE41354320B9ABFA004C5643 /* allIn.entitlements */,
 				974F645720B96EF80067DA39 /* Bridging */,
 				974F645120B96E740067DA39 /* CameraSupport */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -565,6 +570,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				AE41351B20B9A6A6004C5643 /* WatchManager.h */,
+				AE41351C20B9A6A6004C5643 /* WatchManager.m */,
 			);
 			name = allIn;
 			sourceTree = "<group>";
@@ -855,6 +862,12 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = L9Y5837UXT;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1312,6 +1325,7 @@
 				974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */,
 				974F645420B96EC10067DA39 /* CameraView.m in Sources */,
 				9737FE3820B9753300C49529 /* CameraManager.m in Sources */,
 			);
@@ -1433,6 +1447,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = L9Y5837UXT;
@@ -1444,6 +1460,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = allIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1452,6 +1469,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9Y5837UXT;
 				INFOPLIST_FILE = allIn/Info.plist;
@@ -1462,6 +1481,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = allIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

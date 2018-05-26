@@ -10,6 +10,12 @@ export default EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  textImage: {
+    position: 'absolute',
+    top: 30,
+    width: '100%',
+    height: 60,
+  },
   innerWrap: {
     display: 'flex',
     width: '100%',

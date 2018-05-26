@@ -55,7 +55,7 @@
 
 //which I'm guessing you weren't, and instead you had implemented:
 - (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *, id> *)message replyHandler:(void(^)(NSDictionary<NSString *, id> *replyMessage))replyHandler {
-  [[NSNotificationCenter defaultCenter] postNotificationName:ALL_IN_WATCH_BUTTON_TAPPED_NOTIFICATION_NAME object:nil];
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"camera_button_tapped" object:nil];
 }
 
 

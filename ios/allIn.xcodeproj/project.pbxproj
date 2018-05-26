@@ -326,6 +326,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		AE3B418F20B9C81300602FB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 83CBBA2D1A601D0E00E9B192;
+			remoteInfo = React;
+		};
 		AE69479F20B98F6600C8625D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -769,6 +776,7 @@
 			);
 			dependencies = (
 				AE6947AD20B98F6600C8625D /* PBXTargetDependency */,
+				AE3B419020B9C81300602FB0 /* PBXTargetDependency */,
 			);
 			name = allIn;
 			productName = "Hello World";
@@ -1370,6 +1378,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* allIn-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		AE3B419020B9C81300602FB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			targetProxy = AE3B418F20B9C81300602FB0 /* PBXContainerItemProxy */;
 		};
 		AE6947A020B98F6600C8625D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

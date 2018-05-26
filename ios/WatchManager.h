@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *const ALL_IN_WATCH_BUTTON_TAPPED_NOTIFICATION_NAME = @"ALL_IN_WATCH_BUTTON_TAPPED_NOTIFICATION_NAME";
 
 @interface WatchManager : NSObject
 

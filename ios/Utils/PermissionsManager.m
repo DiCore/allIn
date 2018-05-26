@@ -37,7 +37,6 @@
     }];
 }
 
-
 - (void)checkCameraAuthorizationStatusWithBlock:(void(^)(BOOL granted))block {
 	NSString *mediaType = AVMediaTypeVideo;
     [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {

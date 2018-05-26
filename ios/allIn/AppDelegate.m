@@ -7,19 +7,15 @@
 
 #import "AppDelegate.h"
 #import "PermissionsManager.h"
-
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-<<<<<<< HEAD
 #import <React/RCTRootViewDelegate.h>
-
-@interface AppDelegate () <RCTRootViewDelegate>
-=======
 #import "WatchManager.h"
 
-@interface AppDelegate()
+@interface AppDelegate () <RCTRootViewDelegate>
+
 @property (nonatomic, strong) WatchManager* watchManager;
->>>>>>> watch
+
 @end
 
 @implementation AppDelegate
@@ -29,7 +25,10 @@
   self.watchManager = [WatchManager new];
 
   NSURL *jsCodeLocation;
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+
+//  NSURL *jsCodeLocation;
+//  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   self.rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"allIn"

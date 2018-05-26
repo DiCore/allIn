@@ -80,7 +80,7 @@
     case UIDeviceOrientationLandscapeRight:
       connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
       break;
-  }  
+  }
   [_photoOutput capturePhotoWithSettings:settings delegate:self];
   
   [_movieFileOutput stopRecording];

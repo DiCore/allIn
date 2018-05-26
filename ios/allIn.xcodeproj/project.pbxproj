@@ -51,6 +51,7 @@
 		970B427C20B990690049C046 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B427920B990680049C046 /* FileManager.m */; };
 		970B427F20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B427D20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m */; };
 		970B428520B997B10049C046 /* CaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B428420B997B10049C046 /* CaptureSessionCoordinator.m */; };
+		970B430C20BA24720049C046 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 970B430B20BA24720049C046 /* video.mp4 */; };
 		9737FE3820B9753300C49529 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9737FE3720B9753300C49529 /* CameraManager.m */; };
 		974F645420B96EC10067DA39 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645320B96EC10067DA39 /* CameraView.m */; };
 		974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */; };
@@ -454,6 +455,7 @@
 		970B427E20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionMovieFileOutputCoordinator.h; sourceTree = "<group>"; };
 		970B428320B997B10049C046 /* CaptureSessionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionCoordinator.h; sourceTree = "<group>"; };
 		970B428420B997B10049C046 /* CaptureSessionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionCoordinator.m; sourceTree = "<group>"; };
+		970B430B20BA24720049C046 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		9737FE3620B9753300C49529 /* CameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		9737FE3720B9753300C49529 /* CameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
 		974F645220B96EC10067DA39 /* CameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
@@ -640,6 +642,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				970B430B20BA24720049C046 /* video.mp4 */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AE41351B20B9A6A6004C5643 /* WatchManager.h */,
 				AE41351C20B9A6A6004C5643 /* WatchManager.m */,
@@ -1414,6 +1417,7 @@
 				6436FFE0635E4AC6820C14E5 /* MaterialCommunityIcons.ttf in Resources */,
 				1B655993B113441EAD396269 /* MaterialIcons.ttf in Resources */,
 				5CD5DB179E80488C9AF5B849 /* Octicons.ttf in Resources */,
+				970B430C20BA24720049C046 /* video.mp4 in Resources */,
 				216CDB0A8CD144C2A8FC53C2 /* SimpleLineIcons.ttf in Resources */,
 				CAFEE22A9AB1477CA2E0409D /* Zocial.ttf in Resources */,
 			);

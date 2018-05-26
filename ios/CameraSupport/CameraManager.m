@@ -62,7 +62,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[@"EventResize", @"EventHighlightGenerated"];
+  return @[@"EventResize", @"EventHighlightGenerated", @"EventHighlightsFinished"];
 }
 
 RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
@@ -125,6 +125,15 @@ RCT_EXPORT_METHOD(stopSession)
     NSLog(@"Stop session");
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.captureSessionCoordinator stopRunning];
+    
+#if TARGET_OS_SIMULATOR
+    NSMutableArray *body = [NSMutableArray array];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
+    for (HighlightInfo *info in self.highlights) {
+      [body addObject:@{@"videoPath" : videoPath, @"imagePath" : info.imageURL.path}];
+    }
+    [self sendEventWithName:@"EventHighlightsFinished" body: body];
+#endif
   });
 }
 
@@ -142,6 +151,12 @@ RCT_EXPORT_METHOD(stopSession)
   [self createHighlights:outputFileURL completion:^(BOOL result) {
     dispatch_async(dispatch_get_main_queue(), ^{
       NSLog(@"TRIMMED");
+      
+      NSMutableArray *body = [NSMutableArray array];
+      for (HighlightInfo *info in self.highlights) {
+        [body addObject:@{@"videoPath" : info.videoURL.path, @"imagePath" : info.imageURL.path}];
+      }
+      [self sendEventWithName:@"EventHighlightsFinished" body: body];
     });
   }];
 }

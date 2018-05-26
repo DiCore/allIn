@@ -8,8 +8,11 @@
 
 #import "CameraManager.h"
 #import "CameraView.h"
+#import "CaptureSessionAssetWriterCoordinator.h"
 
-@interface CameraManager ()
+@interface CameraManager () <CaptureSessionCoordinatorDelegate>
+
+@property (nonatomic, strong) CaptureSessionCoordinator *captureSessionCoordinator;
 
 @end
 
@@ -27,11 +30,69 @@ RCT_EXPORT_MODULE();
   return _camerView;
 }
 
+- (instancetype)init {
+  self = [super init];
+  
+  if (self != nil) {
+    [self setup];
+  }
+  
+  return self;
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (NSArray<NSString *> *)supportedEvents
+{
+  return @[@"EventResize"];
+}
+
 RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
 {
   NSLog(@"HIGHLIGHT GENERATE %d", seconds);
+}
+
+RCT_EXPORT_METHOD(startSession)
+{
+  NSLog(@"Start session");
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
+  [self.captureSessionCoordinator startRecording];
+}
+
+RCT_EXPORT_METHOD(stopSession)
+{
+  NSLog(@"Stop session");
+  [UIApplication sharedApplication].idleTimerDisabled = NO;
+  [self.captureSessionCoordinator stopRunning];
+}
+
+#pragma mark - CaptureSessionCoordinatorDelegate methods
+
+- (void)coordinatorDidBeginRecording:(CaptureSessionCoordinator *)coordinator {
+  NSLog(@"Dit begin recording");
+}
+
+- (void)coordinator:(CaptureSessionCoordinator *)coordinator didFinishRecordingToOutputFileURL:(NSURL *)outputFileURL error:(NSError *)error {
+  NSLog(@"Did finish recording to: %@", outputFileURL);
+}
+
+#pragma mark - Private methods
+
+- (void)setup {
+  self.captureSessionCoordinator = [CaptureSessionAssetWriterCoordinator new];
+  [self.captureSessionCoordinator setDelegate:self callbackQueue:dispatch_get_main_queue()];
+  CameraManager.cameraView.previewLayer = self.captureSessionCoordinator.previewLayer;
+  [self.captureSessionCoordinator startRunning];
   
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
   
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRootViewResize) name:@"rootViewResize" object:nil];
+}
+
+- (void)handleRootViewResize {
+  [self sendEventWithName:@"EventResize" body:nil];
 }
 
 @end

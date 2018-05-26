@@ -6,9 +6,14 @@
  */
 
 #import "AppDelegate.h"
+#import "PermissionsManager.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTRootViewDelegate.h>
+
+@interface AppDelegate () <RCTRootViewDelegate>
+@end
 
 @implementation AppDelegate
 
@@ -23,13 +28,37 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  rootView.delegate = self;
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [self checkPermissions];
+  
   return YES;
+}
+
+- (void)checkPermissions
+{
+  PermissionsManager *pm = [PermissionsManager new];
+  [pm checkCameraAuthorizationStatusWithBlock:^(BOOL granted) {
+    if(!granted){
+      NSLog(@"no camera persmissions");
+    }
+    
+    [pm checkMicrophonePermissionsWithBlock:^(BOOL granted) {
+      if(!granted){
+        NSLog(@"no mic permissions");
+      }
+    }];
+  }];
+}
+
+- (void)rootViewDidChangeIntrinsicSize:(RCTRootView *)rootView {  
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"rootViewResize" object:nil];
 }
 
 @end

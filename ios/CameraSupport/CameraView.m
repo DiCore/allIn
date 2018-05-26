@@ -10,8 +10,6 @@
 
 @interface CameraView ()
 
-@property (nonatomic, strong) UIView* v;
-
 @end
 
 @implementation CameraView
@@ -32,17 +30,51 @@
   return self;
 }
 
+- (void)setPreviewLayer:(AVCaptureVideoPreviewLayer *)previewLayer {
+  [_previewLayer removeFromSuperlayer];
+  
+  _previewLayer = previewLayer;
+  
+  [self.layer addSublayer:previewLayer];
+  
+  [self setNeedsLayout];
+}
+
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  self.v.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+  //self.previewLayer.frame = self.layer.bounds;
+  if (self.previewLayer.connection != nil && self.previewLayer.connection.isVideoOrientationSupported) {
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    switch (orientation) {
+      case UIDeviceOrientationPortrait:
+      case UIDeviceOrientationFaceUp:
+      case UIDeviceOrientationFaceDown:
+      case UIDeviceOrientationUnknown:
+        [self updatePreviewLayerOrientation:AVCaptureVideoOrientationPortrait];
+        break;
+      case UIDeviceOrientationPortraitUpsideDown:
+        [self updatePreviewLayerOrientation:AVCaptureVideoOrientationPortraitUpsideDown];
+        break;
+      case UIDeviceOrientationLandscapeLeft:
+        [self updatePreviewLayerOrientation:AVCaptureVideoOrientationLandscapeRight];
+        break;
+      case UIDeviceOrientationLandscapeRight:
+        [self updatePreviewLayerOrientation:AVCaptureVideoOrientationLandscapeLeft];
+        break;
+    }
+  }
 }
 
+#pragma mark - Private methods
+
 - (void)setup {
-  self.v = [UIView new];
-  [self.v setTranslatesAutoresizingMaskIntoConstraints:NO];
-  self.v.backgroundColor = [UIColor redColor];
-  [self addSubview:self.v];
+  
+}
+
+- (void)updatePreviewLayerOrientation:(AVCaptureVideoOrientation)orientation {
+  self.previewLayer.connection.videoOrientation = orientation;
+  self.previewLayer.frame = self.bounds;
 }
 
 @end

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
 @class CameraView;
 
-@interface CameraManager : NSObject <RCTBridgeModule>
+@interface CameraManager : RCTEventEmitter <RCTBridgeModule>
 
 + (CameraView *)cameraView;
 

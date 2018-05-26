@@ -32,7 +32,7 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <CameraView style={{ width: window.width, height: window.height, position: 'absolute' }} />
         <TouchableOpacity onPress={() => {
-          CameraManager.generateHighlight()
+          CameraManager.generateHighlight(20)
         }}>
           <Text>Button here</Text>
         </TouchableOpacity>

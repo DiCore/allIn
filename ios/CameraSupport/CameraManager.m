@@ -12,9 +12,9 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(generateHighlight)
+RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
 {
-  NSLog(@"HIGHLIGHT GENERATE");
+  NSLog(@"HIGHLIGHT GENERATE %d", seconds);
 }
 
 @end

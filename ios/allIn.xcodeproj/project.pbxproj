@@ -58,6 +58,7 @@
 		974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */; };
 		A9A4F3330DC245839FFD0FB3 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D95E7F4D682422A863EADBA /* Ionicons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE41351C20B9A6A6004C5643 /* WatchManager.m */; };
 		AE69479520B98F6400C8625D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE69479320B98F6400C8625D /* Interface.storyboard */; };
 		AE69479720B98F6500C8625D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE69479620B98F6500C8625D /* Assets.xcassets */; };
 		AE69479E20B98F6600C8625D /* allInWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AE69479D20B98F6500C8625D /* allInWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -365,6 +366,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		AE3B418F20B9C81300602FB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 83CBBA2D1A601D0E00E9B192;
+			remoteInfo = React;
+		};
 		AE69479F20B98F6600C8625D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -462,6 +470,9 @@
 		9EB0BDD8A49941B3939526F8 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		9F2927E4C5594C55B94FB9B6 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		AE41351B20B9A6A6004C5643 /* WatchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WatchManager.h; sourceTree = "<group>"; };
+		AE41351C20B9A6A6004C5643 /* WatchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WatchManager.m; sourceTree = "<group>"; };
+		AE41354320B9ABFA004C5643 /* allIn.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = allIn.entitlements; path = allIn/allIn.entitlements; sourceTree = "<group>"; };
 		AE69479120B98F6400C8625D /* allInWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = allInWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE69479420B98F6400C8625D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		AE69479620B98F6500C8625D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -626,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				9737FE7620B9903700C49529 /* Utils */,
+				AE41354320B9ABFA004C5643 /* allIn.entitlements */,
 				974F645720B96EF80067DA39 /* Bridging */,
 				974F645120B96E740067DA39 /* CameraSupport */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -635,6 +647,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				AE41351B20B9A6A6004C5643 /* WatchManager.h */,
+				AE41351C20B9A6A6004C5643 /* WatchManager.m */,
 			);
 			name = allIn;
 			sourceTree = "<group>";
@@ -899,6 +913,7 @@
 			);
 			dependencies = (
 				AE6947AD20B98F6600C8625D /* PBXTargetDependency */,
+				AE3B419020B9C81300602FB0 /* PBXTargetDependency */,
 			);
 			name = allIn;
 			productName = "Hello World";
@@ -987,24 +1002,33 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 69E84E6ZMS;
+
+						DevelopmentTeam = L9Y5837UXT;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 69E84E6ZMS;
+						DevelopmentTeam = L9Y5837UXT;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = L9Y5837UXT;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = L9Y5837UXT;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
 					AE69479020B98F6400C8625D = {
 						CreatedOnToolsVersion = 9.3.1;
-						DevelopmentTeam = 69E84E6ZMS;
+						DevelopmentTeam = L9Y5837UXT;
 						ProvisioningStyle = Automatic;
 					};
 					AE69479C20B98F6500C8625D = {
@@ -1493,6 +1517,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				970B428220B997990049C046 /* CaptureSessionAssetWriterCoordinator.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */,
 				974F645420B96EC10067DA39 /* CameraView.m in Sources */,
 				9737FE3820B9753300C49529 /* CameraManager.m in Sources */,
 			);
@@ -1538,6 +1563,11 @@
 			target = 2D02E47A1E0B4A5D006451C7 /* allIn-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
+		AE3B419020B9C81300602FB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			targetProxy = AE3B418F20B9C81300602FB0 /* PBXContainerItemProxy */;
+		};
 		AE6947A020B98F6600C8625D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AE69479C20B98F6500C8625D /* allInWatch Extension */;
@@ -1575,7 +1605,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 69E84E6ZMS;
+				DEVELOPMENT_TEAM = L9Y5837UXT;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1613,6 +1643,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
+
 				INFOPLIST_FILE = allInTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1634,6 +1665,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 69E84E6ZMS;
@@ -1650,6 +1683,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = allIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1658,6 +1692,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69E84E6ZMS;
 				HEADER_SEARCH_PATHS = (
@@ -1673,6 +1709,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = allIn;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1686,7 +1723,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = L9Y5837UXT;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1707,6 +1747,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.allIn-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
@@ -1722,8 +1763,11 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L9Y5837UXT;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1743,6 +1787,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.allIn-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
@@ -1758,6 +1803,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = L9Y5837UXT;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1794,6 +1840,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = L9Y5837UXT;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

@@ -10,17 +10,23 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+<<<<<<< HEAD
 #import <React/RCTRootViewDelegate.h>
 
 @interface AppDelegate () <RCTRootViewDelegate>
+=======
+#import "WatchManager.h"
+
+@interface AppDelegate()
+@property (nonatomic, strong) WatchManager* watchManager;
+>>>>>>> watch
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  //  NSURL *jsCodeLocation;
-  //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  self.watchManager = [WatchManager new];
 
   NSURL *jsCodeLocation;
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];

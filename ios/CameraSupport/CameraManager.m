@@ -82,12 +82,6 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
     info.begin = begin;
     [self.highlights addObject:info];
     
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentPath = [searchPaths objectAtIndex:0];
-    NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", (int)self.highlights.count - 1]];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-      [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
-    }
 #if TARGET_OS_SIMULATOR
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
@@ -98,18 +92,10 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
       [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
     }
     info.imageURL = [NSURL fileURLWithPath:imagePath];
-#else
-    UIGraphicsBeginImageContextWithOptions(CameraManager.cameraView.bounds.size, YES, [UIScreen mainScreen].scale);
-    [CameraManager.cameraView drawViewHierarchyInRect:CameraManager.cameraView.bounds afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    if (image != nil) {
-      [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
-    }
-    info.imageURL = [NSURL fileURLWithPath:imagePath];
-#endif
-    
     [self sendEventWithName:@"EventHighlightGenerated" body:@{@"imagePath" : info.imageURL.path}];
+#else
+    [self.captureSessionCoordinator capturePhoto];
+#endif
   });
 }
 
@@ -151,6 +137,24 @@ RCT_EXPORT_METHOD(stopSession)
       NSLog(@"TRIMMED");
     });
   }];
+}
+
+- (void)coordinator:(CaptureSessionCoordinator *)coordinator didCapturePhoto:(UIImage *)image {
+  NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentPath = [searchPaths objectAtIndex:0];
+  int index = (int)self.highlights.count - 1;
+  NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", index]];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+    [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
+  }
+  
+  HighlightInfo *info = self.highlights[index];
+  if (image != nil) {
+    [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
+  }
+  info.imageURL = [NSURL fileURLWithPath:imagePath];
+  
+  [self sendEventWithName:@"EventHighlightGenerated" body:@{@"imagePath" : info.imageURL.path}];
 }
 
 #pragma mark - Private methods

@@ -73,6 +73,10 @@
     // Do nothing
 }
 
+- (void)capturePhoto {
+  // Do nothing
+}
+
 #pragma mark - Capture Session Setup
 
 

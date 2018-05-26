@@ -8,8 +8,9 @@
 
 #import "CaptureSessionMovieFileOutputCoordinator.h"
 #import "FileManager.h"
+#import <UIKit/UIKit.h>
 
-@interface CaptureSessionMovieFileOutputCoordinator () <AVCaptureFileOutputRecordingDelegate>
+@interface CaptureSessionMovieFileOutputCoordinator () <AVCaptureFileOutputRecordingDelegate, AVCapturePhotoCaptureDelegate>
 
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic, strong) AVCapturePhotoOutput *photoOutput;
@@ -22,7 +23,7 @@
     self = [super init];
     if(self){
       [self addMovieFileOutputToCaptureSession:self.captureSession];
-      //[self addPhotoCaptureOutputToCaptureSession:self.captureSession];
+      [self addPhotoCaptureOutputToCaptureSession:self.captureSession];
     }
     return self;
 }
@@ -57,6 +58,35 @@
 #endif
 }
 
+- (void)capturePhoto {
+#if TARGET_OS_SIMULATOR
+#else
+  AVCapturePhotoSettings *settings = [AVCapturePhotoSettings new];
+  AVCaptureConnection *connection = [_photoOutput connectionWithMediaType:AVMediaTypeVideo];
+  UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+  switch (orientation) {
+    case UIDeviceOrientationPortrait:
+    case UIDeviceOrientationFaceUp:
+    case UIDeviceOrientationFaceDown:
+    case UIDeviceOrientationUnknown:
+      connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+      break;
+    case UIDeviceOrientationPortraitUpsideDown:
+      connection.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+      break;
+    case UIDeviceOrientationLandscapeLeft:
+      connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+      break;
+    case UIDeviceOrientationLandscapeRight:
+      connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+      break;
+  }  
+  [_photoOutput capturePhotoWithSettings:settings delegate:self];
+  
+  [_movieFileOutput stopRecording];
+#endif
+}
+
 #pragma mark - AVCaptureFileOutputRecordingDelegate methods
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL
@@ -66,6 +96,25 @@
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
     [self.delegate coordinator:self didFinishRecordingToOutputFileURL:outputFileURL error:error];
+}
+
+#pragma mark - AVCapturePhotoCaptureDelegate methods
+
+- (void) captureOutput:(AVCapturePhotoOutput *)output didFinishProcessingPhotoSampleBuffer:(CMSampleBufferRef)photoSampleBuffer previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(AVCaptureBracketedStillImageSettings *)bracketSettings error:(NSError *)error {
+  
+  if (error != nil || photoSampleBuffer == nil /* || previewPhotoSampleBuffer == nil */) {
+    NSLog(@"Error %@", error);
+    return;
+  }
+  
+  NSData *dataImage = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+  if (dataImage == nil) {
+    NSLog(@"Error data image");
+    return;
+  }
+  
+  UIImage *image = [UIImage imageWithData:dataImage];
+  [self.delegate coordinator:self didCapturePhoto:image];
 }
 
 @end

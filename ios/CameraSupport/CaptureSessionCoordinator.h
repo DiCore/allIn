@@ -31,6 +31,8 @@
 
 - (AVCaptureVideoPreviewLayer *)previewLayer;
 
+- (void)capturePhoto;
+
 @end
 
 @protocol CaptureSessionCoordinatorDelegate <NSObject>
@@ -39,5 +41,6 @@
 
 - (void)coordinatorDidBeginRecording:(CaptureSessionCoordinator *)coordinator;
 - (void)coordinator:(CaptureSessionCoordinator *)coordinator didFinishRecordingToOutputFileURL:(NSURL *)outputFileURL error:(NSError *)error;
+- (void)coordinator:(CaptureSessionCoordinator *)coordinator didCapturePhoto:(UIImage *)image;
 
 @end

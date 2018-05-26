@@ -63,6 +63,7 @@ class Highlight extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonItems} onPress={() => {
             CameraManager.stopSession()
+            this.props.navigation.navigate('HighlightSession', {videos: [{img: '', video: ''}]})
           }}>
           <Text>STOP</Text>
           </TouchableOpacity>

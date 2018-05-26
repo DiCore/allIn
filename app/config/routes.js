@@ -2,7 +2,7 @@ import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator, createTabNavigator} from 'react-navigation';
 
 import { Tabs } from '../components';
-import {Home, Highlight, AllIn, MyStage} from '../screens';
+import {Home, Highlight, AllIn, MyStage, HighlightSession} from '../screens';
 
 const stackNavigator = createStackNavigator({
   Home: {
@@ -38,6 +38,9 @@ const stackParentNavigator = createStackNavigator({
   Highlight: {
     screen: Highlight,
   },
+  HighlightSession: {
+    screen: HighlightSession
+  }
 }, {
   headerMode: 'none',
   // cardStyle: { paddingTop: Platform.OS == 'ios' ? 15 : 0, backgroundColor: '#075394' },

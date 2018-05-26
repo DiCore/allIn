@@ -29,7 +29,8 @@ class Home extends Component {
             repeat
             style={styles.video}
           />*/}
-          <Image source={require('../../resources/back_main.png')} resizeMode='cover' style={styles.video} />
+          <Image source={require('../../resources/Adidas-bg.png')} resizeMode='cover' style={styles.video} />
+          <Image source={require('../../resources/create-your-stage.png')} resizeMode='contain' style={styles.textImage} />
           <View style={styles.innerWrap}>
             <TouchableOpacity style={styles.createButton} onPress={() => {
               // this.props.dispatch({type: "LOADING_START"})

@@ -14,7 +14,7 @@ class Home extends Component {
     return (
       <View style={styles.videoContainer}>
         <Video
-          source={require('../../resources/Final.mp4')}
+          source={require('../../resources/back_2.mp4')}
           rate={1.0}
           volume={1.0}
           muted={true}
@@ -23,10 +23,10 @@ class Home extends Component {
           style={styles.video}
         />
 
-        <TouchableOpacity onPress={() => {
+        <TouchableOpacity style={styles.createButton} onPress={() => {
           this.props.dispatch({type: "LOADING_START"})
         }}>
-          <Text style={{color: 'white'}}>Some home view Here!</Text>
+          <Text style={{color: 'white'}}>CREATE</Text>
         </TouchableOpacity>
       </View>
     )

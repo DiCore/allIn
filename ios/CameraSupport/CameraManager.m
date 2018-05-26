@@ -8,7 +8,6 @@
 
 #import "CameraManager.h"
 #import "CameraView.h"
-#import "CaptureSessionAssetWriterCoordinator.h"
 #import "CaptureSessionMovieFileOutputCoordinator.h"
 #import "AppDelegate.h"
 
@@ -83,23 +82,20 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
     info.begin = begin;
     [self.highlights addObject:info];
     
-    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentPath = [searchPaths objectAtIndex:0];
-    NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", (int)self.highlights.count - 1]];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-      [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
-    }
-    
-    UIGraphicsBeginImageContextWithOptions(CameraManager.cameraView.bounds.size, YES, [UIScreen mainScreen].scale);
-    [CameraManager.cameraView drawViewHierarchyInRect:CameraManager.cameraView.bounds afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+#if TARGET_OS_SIMULATOR
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    UIImage *image = [CameraManager imageFromColor:color size:CameraManager.cameraView.bounds.size];
     if (image != nil) {
       [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
     }
     info.imageURL = [NSURL fileURLWithPath:imagePath];
-    
     [self sendEventWithName:@"EventHighlightGenerated" body:@{@"imagePath" : info.imageURL.path}];
+#else
+    [self.captureSessionCoordinator capturePhoto];
+#endif
   });
 }
 
@@ -110,6 +106,9 @@ RCT_EXPORT_METHOD(startSession)
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     [self.highlights removeAllObjects];
     [self.captureSessionCoordinator startRecording];
+#if TARGET_OS_SIMULATOR
+    self.startDate = [NSDate date];
+#endif
   });
 }
 
@@ -138,6 +137,24 @@ RCT_EXPORT_METHOD(stopSession)
       NSLog(@"TRIMMED");
     });
   }];
+}
+
+- (void)coordinator:(CaptureSessionCoordinator *)coordinator didCapturePhoto:(UIImage *)image {
+  NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentPath = [searchPaths objectAtIndex:0];
+  int index = (int)self.highlights.count - 1;
+  NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", index]];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+    [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
+  }
+  
+  HighlightInfo *info = self.highlights[index];
+  if (image != nil) {
+    [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
+  }
+  info.imageURL = [NSURL fileURLWithPath:imagePath];
+  
+  [self sendEventWithName:@"EventHighlightGenerated" body:@{@"imagePath" : info.imageURL.path}];
 }
 
 #pragma mark - Private methods
@@ -185,12 +202,8 @@ RCT_EXPORT_METHOD(stopSession)
   AVAssetExportSession *session = [[AVAssetExportSession alloc]
                                    initWithAsset:asset presetName:AVAssetExportPresetHighestQuality];
   NSString *path = [basePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.mov", index]];
-  NSString *imagePath = [basePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", index]];
   if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
     [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
-  }
-  if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-    [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
   }
   
   HighlightInfo *info = self.highlights[index];
@@ -213,21 +226,6 @@ RCT_EXPORT_METHOD(stopSession)
       case AVAssetExportSessionStatusCompleted: {
         HighlightInfo *highlight = self.highlights[index];
         highlight.videoURL = session.outputURL;
-//
-//        AVAsset *highlightAsset = [AVURLAsset assetWithURL:highlight.videoURL];
-//        AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:highlightAsset];
-//        Float64 durationSeconds = CMTimeGetSeconds([highlightAsset duration]);
-//        CMTime point = CMTimeMakeWithSeconds(durationSeconds, 600);
-//        NSError *error;
-//        CMTime actualTime;
-//
-//        CGImageRef image = [imageGenerator copyCGImageAtTime:point actualTime:&actualTime error:&error];
-//        if (image != nil) {
-//          [UIImageJPEGRepresentation([UIImage imageWithCGImage:image], 0.8) writeToFile:imagePath atomically:YES];
-//          CGImageRelease(image);
-//        }
-//
-//        highlight.previewURL = [NSURL fileURLWithPath:imagePath];
         
         if (index == self.highlights.count - 1) {
           completion(YES);
@@ -243,6 +241,17 @@ RCT_EXPORT_METHOD(stopSession)
         break;
     }
   }];
+}
+
++ (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size {
+  CGRect rect = CGRectMake(0, 0, size.width, size.height);
+  UIGraphicsBeginImageContextWithOptions(rect.size, YES, [UIScreen mainScreen].scale);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetFillColorWithColor(context, [color CGColor]);
+  CGContextFillRect(context, rect);
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  return image;
 }
 
 @end

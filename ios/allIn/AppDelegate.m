@@ -19,8 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  NSURL *jsCodeLocation;
+  //  NSURL *jsCodeLocation;
+  //  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
+  NSURL *jsCodeLocation;
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   self.rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -35,9 +37,9 @@
   rootViewController.view = self.rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
+
   [self checkPermissions];
-  
+
   return YES;
 }
 
@@ -48,7 +50,7 @@
     if(!granted){
       NSLog(@"no camera persmissions");
     }
-    
+
     [pm checkMicrophonePermissionsWithBlock:^(BOOL granted) {
       if(!granted){
         NSLog(@"no mic permissions");

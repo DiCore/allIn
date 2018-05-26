@@ -11,11 +11,11 @@ import Foundation
 
 
 class InterfaceController: WKInterfaceController {
-
+    @IBOutlet var createButton: WKInterfaceButton!
+    @IBOutlet var interfaceGroup: WKInterfaceGroup!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        // Configure interface objects here.
     }
     
     override func willActivate() {
@@ -28,4 +28,7 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+    @IBAction func userDidTapCreateButton() {
+        print("Create button tapped!")
+    }
 }

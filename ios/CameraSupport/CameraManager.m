@@ -88,6 +88,13 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     UIImage *image = [CameraManager imageFromColor:color size:CameraManager.cameraView.bounds.size];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentPath = [searchPaths objectAtIndex:0];
+    int index = (int)self.highlights.count - 1;
+    NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", index]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+      [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
+    }
     if (image != nil) {
       [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
     }

@@ -1,7 +1,8 @@
 import {StatusBar, Platform} from 'react-native';
 import {createStackNavigator, createTabNavigator} from 'react-navigation';
 
-import {Home, Highlight, Feed} from '../screens';
+import { Tabs } from '../components';
+import {Home, Highlight, AllIn, MyStage} from '../screens';
 
 const stackNavigator = createStackNavigator({
   Home: {
@@ -11,35 +12,23 @@ const stackNavigator = createStackNavigator({
   headerMode: 'none',
   // cardStyle: { paddingTop: Platform.OS == 'ios' ? 15 : 0, backgroundColor: '#075394' },
 });
-//
-// stackNavigator.navigationOptions = (nav) => {
-//   let tabBarVisible = true;
-//   console.log(nav);
-//   let navigation = nav.navigation;
-//   if (navigation.state.index > 0) {
-//     tabBarVisible = false;
-//   }
-//
-//   return {
-//     tabBarVisible,
-//   };
-// }
-
 const tabNavigator = createTabNavigator({
-  Feeded: {
-    screen: Feed,
+  AllIn: {
+    screen: AllIn,
   },
   Init: {
-    screen: stackNavigator
+    screen: stackNavigator,
   },
-  Feed: {
-    screen: Feed
+  MyStage: {
+    screen: MyStage,
   }
 }, {
+  cardStyle: { paddingBottom: 60 },
   initialRouteName: 'Init',
   backBehavior: 'none',
   tabBarPosition: "bottom",
   swipeEnabled: true,
+  tabBarComponent: Tabs,
 });
 
 const stackParentNavigator = createStackNavigator({

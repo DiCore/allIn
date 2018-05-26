@@ -8,14 +8,16 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-class Feed extends Component {
+class AllIn extends Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text>THIS IS THE FEED</Text>
+        <View style={styles.innerWrap}>
+          <Text>THIS IS THE FEED</Text>
+        </View>
       </View>
     )
   }
 }
 
-export default connect()(Feed);
+export default connect()(AllIn);

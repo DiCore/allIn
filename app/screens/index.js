@@ -1,13 +1,13 @@
-// export * from './CameraView';
-// export * from './Home/Home';
 import CameraView from './CameraView';
 import Home from './Home/Home';
 import Highlight from './Highlight/Highlight';
-import Feed from './Feed/Feed';
+import AllIn from './AllIn/AllIn';
+import MyStage from './MyStage/MyStage';
 
 export {
   CameraView,
   Home,
   Highlight,
-  Feed
+  AllIn,
+  MyStage
 }

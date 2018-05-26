@@ -47,19 +47,21 @@
 }
 
 - (void)startRunning {
-#ifndef TARGET_IPHONE_SIMULATOR
-    dispatch_sync( _sessionQueue, ^{
-        [_captureSession startRunning];
-    } );
+#if TARGET_OS_SIMULATOR
+#else
+  dispatch_sync( _sessionQueue, ^{
+    [_captureSession startRunning];
+  } );
 #endif
 }
 
 - (void)stopRunning {
-#ifndef TARGET_IPHONE_SIMULATOR
-    dispatch_sync( _sessionQueue, ^{
-        [self stopRecording];
-        [_captureSession stopRunning];
-    } );
+#if TARGET_OS_SIMULATOR
+#else
+  dispatch_sync( _sessionQueue, ^{
+    [self stopRecording];
+    [_captureSession stopRunning];
+  } );
 #endif
 }
 

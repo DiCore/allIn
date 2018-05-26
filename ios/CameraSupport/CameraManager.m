@@ -9,11 +9,14 @@
 #import "CameraManager.h"
 #import "CameraView.h"
 #import "CaptureSessionAssetWriterCoordinator.h"
+#import "CaptureSessionMovieFileOutputCoordinator.h"
 #import "AppDelegate.h"
 
 @interface CameraManager () <CaptureSessionCoordinatorDelegate>
 
 @property (nonatomic, strong) CaptureSessionCoordinator *captureSessionCoordinator;
+
+@property (nonatomic, strong) NSDate *startDate;
 
 @end
 
@@ -72,7 +75,9 @@ RCT_EXPORT_METHOD(stopSession)
 #pragma mark - CaptureSessionCoordinatorDelegate methods
 
 - (void)coordinatorDidBeginRecording:(CaptureSessionCoordinator *)coordinator {
-  NSLog(@"Dit begin recording");
+  NSLog(@"Did begin recording");
+  
+  self.startDate = [NSDate date];
 }
 
 - (void)coordinator:(CaptureSessionCoordinator *)coordinator didFinishRecordingToOutputFileURL:(NSURL *)outputFileURL error:(NSError *)error {
@@ -82,7 +87,7 @@ RCT_EXPORT_METHOD(stopSession)
 #pragma mark - Private methods
 
 - (void)setup {
-  self.captureSessionCoordinator = [CaptureSessionAssetWriterCoordinator new];
+  self.captureSessionCoordinator = [CaptureSessionMovieFileOutputCoordinator new];
   [self.captureSessionCoordinator setDelegate:self callbackQueue:dispatch_get_main_queue()];
   CameraManager.cameraView.previewLayer = self.captureSessionCoordinator.previewLayer;
   [self.captureSessionCoordinator startRunning];

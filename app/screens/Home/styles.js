@@ -1,5 +1,6 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
 import EStyleSheet from "react-native-extended-stylesheet";
+const {width, height} = Dimensions.get('window');
 
 export default EStyleSheet.create({
   videoContainer: {
@@ -7,7 +8,24 @@ export default EStyleSheet.create({
     width: '100%',
     height:'100%',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-start',
+  },
+  imageButton: {
+    width: 80,
+    height: 80,
+  },
+  textImage: {
+    position: 'absolute',
+    top: 30,
+    width: '100%',
+    height: 60,
+  },
+  innerWrap: {
+    display: 'flex',
+    width: '100%',
+    height:height - 80,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   video: {
     position: 'absolute',
@@ -19,10 +37,6 @@ export default EStyleSheet.create({
     height: '100%',
   },
   createButton:{
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'red',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

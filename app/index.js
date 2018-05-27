@@ -3,6 +3,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import Navigator from './config/routes';
 import { Provider } from 'react-redux';
 import store from './config/store';
+console.disableYellowBox = true;
 
 
 import {

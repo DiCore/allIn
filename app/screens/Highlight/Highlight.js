@@ -23,6 +23,9 @@ class Highlight extends Component {
     this.state = {
       width: window.width,
       height: window.height,
+      displayHighlights: false,
+      selectedTime: 10,
+      displayTime: false,
       images: [],
     }
   }
@@ -37,35 +40,97 @@ class Highlight extends Component {
     calendarManagerEmitter.addListener(
       'EventHighlightGenerated',
       (event) => {
-        console.log(event)
         let newImages = this.state.images.slice(0);
         newImages.push(event.imagePath);
         this.setState({images: newImages});
       }
     );
+    calendarManagerEmitter.addListener(
+      'EventHighlightsFinished',
+      (event) => {
+        this.props.navigation.navigate('HighlightSession', {videos: event})
+      }
+    );
   }
+
+  renderImages(){
+    if(!this.state.displayHighlights) return null;
+    return (
+      <View style={styles.gallery}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {this.state.images.map((img, key) => {
+            return (<Image key={key} source={{uri: img}} resizeMode={'cover'} style={styles.repeatImages} />)
+          })}
+        </ScrollView>
+      </View>
+    );
+  }
+
+  selectTime(time){
+    this.setState({selectedTime: time});
+  }
+
+  renderTimer(){
+    if(!this.state.displayTime) return null;
+    return (
+      <View style={styles.timer}>
+        <ScrollView
+          contentContainerStyle={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled={true}
+          snapToInterval={40}
+          decelerationRate="fast"
+          snapToAlignment={'center'}
+        >
+          <TouchableOpacity onPress={this.selectTime.bind(this, 5)}>
+            <Text style={[styles.pickTime, {color: this.state.selectedTime === 5 ? 'white' : "#34495e"}]}>5 sec</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.selectTime.bind(this, 10)}>
+            <Text style={[styles.pickTime, {color: this.state.selectedTime === 10 ? 'white' : "#34495e"}]}>10 sec</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.selectTime.bind(this, 15)}>
+            <Text style={[styles.pickTime, {color: this.state.selectedTime === 15 ? 'white' : "#34495e"}]}>15 sec</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    );
+  }
+
   render(){
     return (
       <View style={styles.container}>
         <CameraView style={{ width: this.state.width, height: this.state.height, position: 'absolute' }} />
-        <View style={styles.imagesWrap}>
-          <ScrollView horizontal={true} contentContainerStyle={{flexDirection:'row'}}>
-            {this.state.images.map((img, key) => {
-              return (<Image key={key} source={{uri: img}} resizeMode={'cover'} style={{width: 100}} />)
-            })}
-          </ScrollView>
-        </View>
-        <View style={styles.buttonsWrap}>
-          <TouchableOpacity style={styles.buttonItems} onPress={() => {
-            CameraManager.generateHighlight(20)
+        <View style={[styles.wholeWrap, {width: this.state.width, height: this.state.height}]}>
+          <TouchableOpacity style={styles.endButton} onPress={() => {
+            CameraManager.stopSession();
           }}>
-          <Text>GENERATE</Text>
+            <Text style={styles.endButtonText}>end</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonItems} onPress={() => {
-            CameraManager.stopSession()
-          }}>
-          <Text>STOP</Text>
-          </TouchableOpacity>
+          <View style={styles.mainButtons}>
+            <TouchableOpacity style={styles.createButton} onPress={() => {
+              // this.props.dispatch({type: "LOADING_START"})
+              this.setState({displayTime: !this.state.displayTime})
+            }}>
+              <Image source={require('../../resources/timer.png')} defaultSource={require('../../resources/timer.png')} style={styles.imageButtonSmall} resizeMode="contain" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.createButton} onPress={() => {
+              // this.props.dispatch({type: "LOADING_START"})
+              CameraManager.generateHighlight(this.state.selectedTime)
+            }}>
+              <Image source={require('../../resources/red-button.png')} defaultSource={require('../../resources/red-button.png')} style={styles.imageButton} resizeMode="contain" />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.createButton} onPress={() => {
+              // this.props.dispatch({type: "LOADING_START"})
+              this.setState({displayHighlights: !this.state.displayHighlights});
+            }}>
+              <Image source={require('../../resources/gallery.png')} defaultSource={require('../../resources/gallery.png')} style={styles.imageButtonSmall} resizeMode="contain" />
+            </TouchableOpacity>
+          </View>
+          {this.renderImages()}
+          {this.renderTimer()}
         </View>
       </View>
     )

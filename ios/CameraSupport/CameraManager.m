@@ -62,7 +62,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[@"EventResize", @"EventHighlightGenerated"];
+  return @[@"EventResize", @"EventHighlightGenerated", @"EventHighlightsFinished"];
 }
 
 RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
@@ -88,6 +88,13 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     UIImage *image = [CameraManager imageFromColor:color size:CameraManager.cameraView.bounds.size];
+    NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentPath = [searchPaths objectAtIndex:0];
+    int index = (int)self.highlights.count - 1;
+    NSString *imagePath = [documentPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg", index]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+      [[NSFileManager defaultManager] removeItemAtPath:imagePath error:NULL];
+    }
     if (image != nil) {
       [UIImageJPEGRepresentation(image, 0.8) writeToFile:imagePath atomically:YES];
     }
@@ -118,6 +125,15 @@ RCT_EXPORT_METHOD(stopSession)
     NSLog(@"Stop session");
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.captureSessionCoordinator stopRunning];
+    
+#if TARGET_OS_SIMULATOR
+    NSMutableArray *body = [NSMutableArray array];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"mp4"];
+    for (HighlightInfo *info in self.highlights) {
+      [body addObject:@{@"videoPath" : videoPath, @"imagePath" : info.imageURL.path}];
+    }
+    [self sendEventWithName:@"EventHighlightsFinished" body: body];
+#endif
   });
 }
 
@@ -135,6 +151,12 @@ RCT_EXPORT_METHOD(stopSession)
   [self createHighlights:outputFileURL completion:^(BOOL result) {
     dispatch_async(dispatch_get_main_queue(), ^{
       NSLog(@"TRIMMED");
+      
+      NSMutableArray *body = [NSMutableArray array];
+      for (HighlightInfo *info in self.highlights) {
+        [body addObject:@{@"videoPath" : info.videoURL.path, @"imagePath" : info.imageURL.path}];
+      }
+      [self sendEventWithName:@"EventHighlightsFinished" body: body];
     });
   }];
 }

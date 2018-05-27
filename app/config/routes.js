@@ -33,11 +33,11 @@ const tabNavigator = createTabNavigator({
 });
 
 const stackParentNavigator = createStackNavigator({
-  HighlightSession: {
-    screen: HighlightSession
-  },
   TabInit: {
     screen: tabNavigator,
+  },
+  HighlightSession: {
+    screen: HighlightSession
   },
   Highlight: {
     screen: Highlight,

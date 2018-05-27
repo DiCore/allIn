@@ -7,7 +7,7 @@ export default EStyleSheet.create({
   container: {
     display: 'flex',
     width: '100%',
-    height:60,
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
@@ -24,7 +24,7 @@ export default EStyleSheet.create({
   tabsWrap: {
     display: 'flex',
     width: '100%',
-    height:80,
+    height: 80,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

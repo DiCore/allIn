@@ -72,7 +72,6 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
 {
-  seconds = 5;
   dispatch_async(dispatch_get_main_queue(), ^{
     NSLog(@"HIGHLIGHT GENERATE %d", seconds);
     

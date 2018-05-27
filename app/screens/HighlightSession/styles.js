@@ -25,5 +25,58 @@ export default EStyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  sessionParams: {
+    width: '100%',
+    height: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+  },
+  sessionMetrics: {
+    width: "100%",
+    height: 150,
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    paddingVertical: 10,
+  },
+  profileWrap: {
+    width: 50,
+    height: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 5,
+    paddingTop: 25
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  profileText: {
+    fontSize: 7,
+    fontFamily: "TeX Gyre Adventor",
+  },
+  sessionLeft: {
+    width: width - 50,
+    height: '100%',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingHorizontal: 10
+  },
+  badgesWrap: {
+    width: '100%',
+    height: 70,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+  },
 })

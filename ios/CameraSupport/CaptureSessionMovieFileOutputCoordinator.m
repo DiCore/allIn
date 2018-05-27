@@ -56,6 +56,7 @@
 #else
     [_movieFileOutput stopRecording];
 #endif
+  [[NSNotificationCenter defaultCenter] postNotificationName:@"camera_did_stop_recording" object:nil];
 }
 
 - (void)capturePhoto {

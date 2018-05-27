@@ -29,18 +29,19 @@ const tabNavigator = createTabNavigator({
   tabBarPosition: "bottom",
   swipeEnabled: true,
   tabBarComponent: Tabs,
+  animationEnabled: true
 });
 
 const stackParentNavigator = createStackNavigator({
+  HighlightSession: {
+    screen: HighlightSession
+  },
   TabInit: {
     screen: tabNavigator,
   },
   Highlight: {
     screen: Highlight,
   },
-  HighlightSession: {
-    screen: HighlightSession
-  }
 }, {
   headerMode: 'none',
   // cardStyle: { paddingTop: Platform.OS == 'ios' ? 15 : 0, backgroundColor: '#075394' },

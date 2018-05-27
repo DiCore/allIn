@@ -195,6 +195,11 @@ RCT_EXPORT_METHOD(stopSession)
   [UIApplication sharedApplication].idleTimerDisabled = YES;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRootViewResize) name:@"rootViewResize" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(watchButtonTriggered) name:@"camera_button_tapped" object:nil];
+}
+
+- (void)watchButtonTriggered {
+  [self generateHighlight:10];
 }
 
 - (void)handleRootViewResize {
@@ -293,10 +298,23 @@ RCT_EXPORT_METHOD(stopSession)
 }
 
 - (void)createEndingVideoWithSize:(CGSize)size completion:(void (^)(BOOL))completion {
-  NSArray *images = @[[CameraManager imageFromColor:[UIColor redColor] size:size shouldScale:NO],
-                      [CameraManager imageFromColor:[UIColor greenColor] size:size shouldScale:NO]];
+  UIImage *bgImage = [CameraManager imageFromColor:[UIColor blackColor] size:size shouldScale:NO];
+  NSArray *images = @[[UIImage imageNamed:@"logo4"], [UIImage imageNamed:@"logo3"]];
   
-  EKMovieMaker * movieMaker = [[EKMovieMaker alloc] initWithImages:images];
+  NSMutableArray *updatedImages = [NSMutableArray array];
+  for (UIImage *img in images) {
+    UIGraphicsBeginImageContext(size);
+    [bgImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    [img drawInRect:CGRectMake((size.width - img.size.width) * 0.5,
+                               (size.height - img.size.height) * 0.5,
+                               img.size.width,
+                               img.size.height)];
+    UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [updatedImages addObject:newImg];
+  }
+  
+  EKMovieMaker * movieMaker = [[EKMovieMaker alloc] initWithImages:updatedImages];
   movieMaker.movieSize = size;
   movieMaker.frameDuration = 3.0f;
   

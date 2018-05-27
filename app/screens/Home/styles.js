@@ -10,6 +10,10 @@ export default EStyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  imageButton: {
+    width: 80,
+    height: 80,
+  },
   textImage: {
     position: 'absolute',
     top: 30,
@@ -19,7 +23,7 @@ export default EStyleSheet.create({
   innerWrap: {
     display: 'flex',
     width: '100%',
-    height:height - 60,
+    height:height - 80,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
@@ -33,10 +37,6 @@ export default EStyleSheet.create({
     height: '100%',
   },
   createButton:{
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'red',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

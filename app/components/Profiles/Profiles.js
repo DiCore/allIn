@@ -15,7 +15,7 @@ class Profiles extends Component {
   renderProfiles(){
     return this.props.profiles.map((p, key) => {
       return (
-        <View style={styles.profileWrap}>
+        <View key={key} style={styles.profileWrap}>
           <Image source={p.avatar} resizeMode="contain" style={styles.avatar} />
           <Text style={styles.profileText}> {p.name} </Text>
         </View>

@@ -11,14 +11,14 @@ import {
   Image
 } from 'react-native';
 
-import { Header, Profiles } from '../../components';
+import { Header, Profiles, ListItem, Badge, Delimiter, VideoItem } from '../../components';
 
 class HighlightSession extends Component {
   constructor(props){
     super(props);
     this.players = {};
     this.state = {
-      paused: this.props.navigation.state.params.videos.map((v) => {return true})
+      // paused: this.props.navigation.state.params.videos.map((v) => {return true})
     }
   }
 
@@ -60,13 +60,64 @@ class HighlightSession extends Component {
     )
   }
 
+  renderProfile() {
+    return (
+      <View style={styles.profileWrap}>
+        <Image source={require('../../resources/avatar.jpg')} resizeMode="contain" style={styles.avatar} />
+        <Text style={styles.profileText}> Me </Text>
+      </View>
+    );
+  }
+
   render(){
 
     return (
       <View style={styles.container}>
         <Header />
-        <Profiles />
-        {this.renderVideos()}
+        <ScrollView pagingEnabled={false}>
+          <Profiles />
+          <View style={styles.sessionParams}>
+            <ListItem title="Football / Soccer"/>
+            <ListItem icon={require('../../resources/location.png')} title="Casa del Lector, Iron Hack"/>
+          </View>
+          <View style={styles.sessionMetrics}>
+            {this.renderProfile()}
+            <View style={styles.sessionLeft}>
+              <ListItem icon={require('../../resources/heart-rate.png')} title="Avg Heart Rate 62BPM" />
+              <ListItem icon={require('../../resources/steps.png')} title="Steps per session 6,187" />
+              <ListItem icon={require('../../resources/callories.png')} title="Callories 208" />
+            </View>
+          </View>
+          <View style={styles.badgesWrap}>
+            <Badge />
+            <Badge
+              image={require('../../resources/videos.png')}
+              innterText="5 videos"
+              points={5}
+            />
+            <Badge
+              image={require('../../resources/like.png')}
+              innterText="5 likes"
+              points={5}
+            />
+            <Badge
+              image={require('../../resources/all-in.png')}
+              innterText="5 shares"
+              points={5}
+            />
+            <Badge
+              image={require('../../resources/instagram.png')}
+              innterText="5 shares"
+              points={5}
+            />
+
+          </View>
+          <Delimiter />
+          {this.props.navigation.state.params.videos.map((video, key) => {
+            return (<VideoItem key={key} videoPath={video.videoPath} />)
+          })}
+
+        </ScrollView>
       </View>
     );
   }

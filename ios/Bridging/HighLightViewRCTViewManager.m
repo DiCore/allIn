@@ -13,6 +13,9 @@
 
 @implementation HighLightView
 
+RCT_EXPORT_MODULE()
+RCT_EXPORT_VIEW_PROPERTY(testLabel, UILabel)
+
 - (instancetype)init
 {
   self = [super init];
@@ -23,6 +26,5 @@
   return self;
 }
 
-RCT_EXPORT_VIEW_PROPERTY(testLabel, UILabel)
 
 @end

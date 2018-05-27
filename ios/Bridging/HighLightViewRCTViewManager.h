@@ -10,6 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <React/RCTViewManager.h>
 
-@interface HighLightView : UIView
+@interface HighLightViewRCTViewManager : UIView <RCTBridgeModule>
 @property(strong, nonatomic) UILabel* testLabel;
 @end

@@ -171,7 +171,7 @@ static NSString * const kVideoOutputFile = @"movie.mp4";
                                                  rgbColorSpace,
                                                  kCGImageAlphaPremultipliedFirst);
     
-    CGContextConcatCTM(context, CGAffineTransformMakeRotation(0));
+    CGContextConcatCTM(context, CGAffineTransformMakeRotation(M_PI_2));
     CGContextDrawImage(context, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
     CGColorSpaceRelease(rgbColorSpace);
     CGContextRelease(context);

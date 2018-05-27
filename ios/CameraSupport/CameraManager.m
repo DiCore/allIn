@@ -13,6 +13,8 @@
 #import "EKMovieMaker.h"
 #import "MKOVideoMerge.h"
 
+#import <allIn-Swift.h>
+
 @interface HighlightInfo : NSObject
 
 @property (nonatomic) NSTimeInterval begin;
@@ -270,25 +272,44 @@ RCT_EXPORT_METHOD(stopSession)
       case AVAssetExportSessionStatusCompleted: {
         
         NSArray *urls = @[session.outputURL, [NSURL fileURLWithPath:self.endingVideoPath]];
-        [MKOVideoMerge mergeVideoFiles:urls
-                        resultFileName:[NSString stringWithFormat:@"v%d.mp4", index]
-                            completion:^(NSURL *mergedVideoFile, NSError *error) {
-          if (error == nil && mergedVideoFile != nil) {
-            HighlightInfo *highlight = self.highlights[index];
-            highlight.videoURL = mergedVideoFile;
-            
-            if (index == self.highlights.count - 1) {
-              completion(YES);
-            } else {
-              [self createHighlight:videoURL
-                           basePath:basePath
-                              index:index + 1
-                         completion:completion];
-            }
-          } else {
-            completion(NO);
-          }
-        }];
+        [VideoManager.sharedInstance mergeWithVideoURLs:urls
+                                               fileName:[NSString stringWithFormat:@"v%d.mp4", index]
+                                             completion:^(NSURL * _Nullable videoURL) {
+                                               if (videoURL != nil) {
+                                                 HighlightInfo *highlight = self.highlights[index];
+                                                 highlight.videoURL = videoURL;
+                                                 
+                                                 if (index == self.highlights.count - 1) {
+                                                   completion(YES);
+                                                 } else {
+                                                   [self createHighlight:videoURL
+                                                                basePath:basePath
+                                                                   index:index + 1
+                                                              completion:completion];
+                                                 }
+                                               } else {
+                                                 completion(NO);
+                                               }
+                                             }];
+//        [MKOVideoMerge mergeVideoFiles:urls
+//                        resultFileName:[NSString stringWithFormat:@"v%d.mp4", index]
+//                            completion:^(NSURL *mergedVideoFile, NSError *error) {
+//          if (error == nil && mergedVideoFile != nil) {
+//            HighlightInfo *highlight = self.highlights[index];
+//            highlight.videoURL = mergedVideoFile;
+//
+//            if (index == self.highlights.count - 1) {
+//              completion(YES);
+//            } else {
+//              [self createHighlight:videoURL
+//                           basePath:basePath
+//                              index:index + 1
+//                         completion:completion];
+//            }
+//          } else {
+//            completion(NO);
+//          }
+//        }];
       }
         break;
       default:
@@ -314,9 +335,25 @@ RCT_EXPORT_METHOD(stopSession)
     [updatedImages addObject:newImg];
   }
   
+  [VideoManager.sharedInstance generateWithImages:updatedImages
+                                             size:size
+                                       completion:^(NSURL * _Nullable videoURL) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (videoURL == nil) {
+                                             completion(NO);
+                                           } else {
+                                             NSLog(@"%@", videoURL);
+                                             self.endingVideoPath = videoURL.path;
+                                             completion(YES);
+                                           }
+                                         });
+                                       }];
+  
+  /*
   EKMovieMaker * movieMaker = [[EKMovieMaker alloc] initWithImages:updatedImages];
   movieMaker.movieSize = size;
   movieMaker.frameDuration = 3.0f;
+  movieMaker.framesPerSecond = 30.0f;
   
   [movieMaker createMovieWithCompletion:^(NSString *videoPath) {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -329,6 +366,7 @@ RCT_EXPORT_METHOD(stopSession)
       }
     });
   }];
+   */
 }
 
 + (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size shouldScale:(BOOL)shouldScale {

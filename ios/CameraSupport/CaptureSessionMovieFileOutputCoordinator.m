@@ -82,8 +82,6 @@
       break;
   }
   [_photoOutput capturePhotoWithSettings:settings delegate:self];
-  
-  [_movieFileOutput stopRecording];
 #endif
 }
 

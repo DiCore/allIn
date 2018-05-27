@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -44,6 +45,7 @@
 		5CD5DB179E80488C9AF5B849 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B935D305E5784844A1720E5E /* Octicons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6436FFE0635E4AC6820C14E5 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 195518C0E583499D9E333726 /* MaterialCommunityIcons.ttf */; };
+		648673EB54884F7EB79782BB /* texgyreadventor-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B14EC5908C4B4D50A0E0F33D /* texgyreadventor-bold.otf */; };
 		7239FBC5C6314677A755B114 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B439A6DEB83409EB740A238 /* Foundation.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		970B427B20B990690049C046 /* PermissionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B425220B990680049C046 /* PermissionsManager.m */; };
@@ -66,9 +68,9 @@
 		AE6947A920B98F6600C8625D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE6947A820B98F6600C8625D /* Assets.xcassets */; };
 		AE6947AE20B98F6600C8625D /* allInWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AE69479120B98F6400C8625D /* allInWatch.app */; };
 		AEB0FCD420BA664D0048CC2B /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0FCAB20BA664D0048CC2B /* HealthKitManager.m */; };
+		AEB0FCE520BA677E0048CC2B /* HighLightView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB0FCE420BA677E0048CC2B /* HighLightView.m */; };
 		CAFEE22A9AB1477CA2E0409D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDC285353A8E42C7A5F5E659 /* Zocial.ttf */; };
 		D34AF484BDB64BB6A2898BB7 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2927E4C5594C55B94FB9B6 /* libRCTVideo.a */; };
-		648673EB54884F7EB79782BB /* texgyreadventor-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B14EC5908C4B4D50A0E0F33D /* texgyreadventor-bold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -483,11 +485,13 @@
 		AE6947AB20B98F6600C8625D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		AEB0FCAB20BA664D0048CC2B /* HealthKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
 		AEB0FCD320BA664D0048CC2B /* HealthKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
+		AEB0FCE320BA677E0048CC2B /* HighLightView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HighLightView.h; sourceTree = "<group>"; };
+		AEB0FCE420BA677E0048CC2B /* HighLightView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HighLightView.m; sourceTree = "<group>"; };
+		B14EC5908C4B4D50A0E0F33D /* texgyreadventor-bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "texgyreadventor-bold.otf"; path = "../assets/fonts/texgyreadventor-bold.otf"; sourceTree = "<group>"; };
 		B935D305E5784844A1720E5E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		CDC285353A8E42C7A5F5E659 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D6B106218ED6470FA5B3613E /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		EB5B72F7E03945E9B03764B2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		B14EC5908C4B4D50A0E0F33D /* texgyreadventor-bold.otf */ = {isa = PBXFileReference; name = "texgyreadventor-bold.otf"; path = "../assets/fonts/texgyreadventor-bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -842,6 +846,8 @@
 			children = (
 				974F645820B96F390067DA39 /* CameraViewRCTViewManager.h */,
 				974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */,
+				AEB0FCE320BA677E0048CC2B /* HighLightView.h */,
+				AEB0FCE420BA677E0048CC2B /* HighLightView.m */,
 			);
 			path = Bridging;
 			sourceTree = "<group>";
@@ -1518,6 +1524,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */,
+				AEB0FCE520BA677E0048CC2B /* HighLightView.m in Sources */,
 				974F645420B96EC10067DA39 /* CameraView.m in Sources */,
 				9737FE3820B9753300C49529 /* CameraManager.m in Sources */,
 			);

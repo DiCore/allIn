@@ -53,6 +53,14 @@
 		970B427F20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B427D20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m */; };
 		970B428520B997B10049C046 /* CaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B428420B997B10049C046 /* CaptureSessionCoordinator.m */; };
 		970B430C20BA24720049C046 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 970B430B20BA24720049C046 /* video.mp4 */; };
+		970B437D20BA57940049C046 /* EKMovieMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B437C20BA57940049C046 /* EKMovieMaker.m */; };
+		970B438020BA5BF90049C046 /* MKOVideoMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B437E20BA5BF90049C046 /* MKOVideoMerge.m */; };
+		970B43BB20BA8ABA0049C046 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970B43BA20BA8ABA0049C046 /* VideoGenerator.swift */; };
+		970B43BE20BA8AC80049C046 /* AVAssetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970B43BC20BA8AC80049C046 /* AVAssetExtension.swift */; };
+		970B43BF20BA8AC80049C046 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970B43BD20BA8AC80049C046 /* ImageExtension.swift */; };
+		970B43C120BA8ACF0049C046 /* VideoGeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970B43C020BA8ACF0049C046 /* VideoGeneratorError.swift */; };
+		970B43C320BA8CDB0049C046 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970B43C220BA8CDB0049C046 /* VideoManager.swift */; };
+		970B43C520BA93640049C046 /* audio1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 970B43C420BA93630049C046 /* audio1.mp3 */; };
 		9737FE3820B9753300C49529 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9737FE3720B9753300C49529 /* CameraManager.m */; };
 		974F645420B96EC10067DA39 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645320B96EC10067DA39 /* CameraView.m */; };
 		974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */; };
@@ -458,6 +466,17 @@
 		970B428320B997B10049C046 /* CaptureSessionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionCoordinator.h; sourceTree = "<group>"; };
 		970B428420B997B10049C046 /* CaptureSessionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionCoordinator.m; sourceTree = "<group>"; };
 		970B430B20BA24720049C046 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		970B435420BA57940049C046 /* EKMovieMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKMovieMaker.h; sourceTree = "<group>"; };
+		970B437C20BA57940049C046 /* EKMovieMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKMovieMaker.m; sourceTree = "<group>"; };
+		970B437E20BA5BF90049C046 /* MKOVideoMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKOVideoMerge.m; sourceTree = "<group>"; };
+		970B437F20BA5BF90049C046 /* MKOVideoMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKOVideoMerge.h; sourceTree = "<group>"; };
+		970B43B920BA8AB90049C046 /* allIn-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "allIn-Bridging-Header.h"; sourceTree = "<group>"; };
+		970B43BA20BA8ABA0049C046 /* VideoGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
+		970B43BC20BA8AC80049C046 /* AVAssetExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAssetExtension.swift; sourceTree = "<group>"; };
+		970B43BD20BA8AC80049C046 /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		970B43C020BA8ACF0049C046 /* VideoGeneratorError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGeneratorError.swift; sourceTree = "<group>"; };
+		970B43C220BA8CDB0049C046 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
+		970B43C420BA93630049C046 /* audio1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio1.mp3; sourceTree = "<group>"; };
 		9737FE3620B9753300C49529 /* CameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		9737FE3720B9753300C49529 /* CameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
 		974F645220B96EC10067DA39 /* CameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
@@ -637,6 +656,7 @@
 		13B07FAE1A68108700A75B9A /* allIn */ = {
 			isa = PBXGroup;
 			children = (
+				970B43B820BA8AA20049C046 /* Swift */,
 				9737FE7620B9903700C49529 /* Utils */,
 				AE41354320B9ABFA004C5643 /* allIn.entitlements */,
 				974F645720B96EF80067DA39 /* Bridging */,
@@ -644,6 +664,7 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				970B43C420BA93630049C046 /* audio1.mp3 */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -812,6 +833,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		970B43B820BA8AA20049C046 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				970B43C020BA8ACF0049C046 /* VideoGeneratorError.swift */,
+				970B43BA20BA8ABA0049C046 /* VideoGenerator.swift */,
+				970B43BC20BA8AC80049C046 /* AVAssetExtension.swift */,
+				970B43BD20BA8AC80049C046 /* ImageExtension.swift */,
+				970B43B920BA8AB90049C046 /* allIn-Bridging-Header.h */,
+				970B43C220BA8CDB0049C046 /* VideoManager.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		9737FE7620B9903700C49529 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -826,6 +860,10 @@
 		974F645120B96E740067DA39 /* CameraSupport */ = {
 			isa = PBXGroup;
 			children = (
+				970B437F20BA5BF90049C046 /* MKOVideoMerge.h */,
+				970B437E20BA5BF90049C046 /* MKOVideoMerge.m */,
+				970B435420BA57940049C046 /* EKMovieMaker.h */,
+				970B437C20BA57940049C046 /* EKMovieMaker.m */,
 				970B427E20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.h */,
 				970B427D20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m */,
 				970B428320B997B10049C046 /* CaptureSessionCoordinator.h */,
@@ -1008,6 +1046,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 69E84E6ZMS;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -1425,6 +1464,7 @@
 				6436FFE0635E4AC6820C14E5 /* MaterialCommunityIcons.ttf in Resources */,
 				1B655993B113441EAD396269 /* MaterialIcons.ttf in Resources */,
 				5CD5DB179E80488C9AF5B849 /* Octicons.ttf in Resources */,
+				970B43C520BA93640049C046 /* audio1.mp3 in Resources */,
 				970B430C20BA24720049C046 /* video.mp4 in Resources */,
 				216CDB0A8CD144C2A8FC53C2 /* SimpleLineIcons.ttf in Resources */,
 				CAFEE22A9AB1477CA2E0409D /* Zocial.ttf in Resources */,
@@ -1510,17 +1550,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				970B438020BA5BF90049C046 /* MKOVideoMerge.m in Sources */,
+				970B437D20BA57940049C046 /* EKMovieMaker.m in Sources */,
 				974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */,
 				970B428520B997B10049C046 /* CaptureSessionCoordinator.m in Sources */,
 				970B427F20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				970B427B20B990690049C046 /* PermissionsManager.m in Sources */,
 				AEB0FCD420BA664D0048CC2B /* HealthKitManager.m in Sources */,
 				970B427C20B990690049C046 /* FileManager.m in Sources */,
+				970B43BE20BA8AC80049C046 /* AVAssetExtension.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				970B43BB20BA8ABA0049C046 /* VideoGenerator.swift in Sources */,
+				970B43C320BA8CDB0049C046 /* VideoManager.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				970B43C120BA8ACF0049C046 /* VideoGeneratorError.swift in Sources */,
 				AE41351D20B9A6A6004C5643 /* WatchManager.m in Sources */,
 				974F645420B96EC10067DA39 /* CameraView.m in Sources */,
 				9737FE3820B9753300C49529 /* CameraManager.m in Sources */,
+				970B43BF20BA8AC80049C046 /* ImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1605,6 +1652,7 @@
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 69E84E6ZMS;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1636,6 +1684,7 @@
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 69E84E6ZMS;
@@ -1665,6 +1714,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1684,6 +1734,9 @@
 				);
 				PRODUCT_NAME = allIn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift/allIn-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1692,6 +1745,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1710,6 +1764,8 @@
 				);
 				PRODUCT_NAME = allIn;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift/allIn-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

@@ -10,6 +10,10 @@
 #import "CameraView.h"
 #import "CaptureSessionMovieFileOutputCoordinator.h"
 #import "AppDelegate.h"
+#import "EKMovieMaker.h"
+#import "MKOVideoMerge.h"
+
+#import <allIn-Swift.h>
 
 @interface HighlightInfo : NSObject
 
@@ -29,6 +33,7 @@
 
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSMutableArray *highlights;
+@property (nonatomic, strong) NSString *endingVideoPath;
 
 @end
 
@@ -211,13 +216,23 @@ RCT_EXPORT_METHOD(stopSession)
     return;
   }
   
-  NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *documentPath = [searchPaths objectAtIndex:0];
+  AVAsset *videoAsset = [AVURLAsset assetWithURL:videoURL];
+  CGSize size = [[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] naturalSize];
   
-  [self createHighlight:videoURL
-               basePath:documentPath
-                  index:0
-             completion:completion];
+  self.endingVideoPath = nil;
+  //[self createEndingVideoWithSize:CGSizeMake(size.height, size.width) completion:^(BOOL result) {
+   // if (result) {
+      NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+      NSString *documentPath = [searchPaths objectAtIndex:0];
+      
+      [self createHighlight:videoURL
+                   basePath:documentPath
+                      index:0
+                 completion:completion];
+//    } else {
+//      completion(NO);
+//    }
+//  }];
 }
 
 - (void)createHighlight:(NSURL *)videoURL
@@ -232,7 +247,11 @@ RCT_EXPORT_METHOD(stopSession)
   if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
     [[NSFileManager defaultManager] removeItemAtPath:path error:NULL];
   }
-  
+  NSString *path2 = [basePath stringByAppendingPathComponent:[NSString stringWithFormat:@"v%d.mp4", index]];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:path2]) {
+    [[NSFileManager defaultManager] removeItemAtPath:path2 error:NULL];
+  }
+
   HighlightInfo *info = self.highlights[index];
   session.outputURL = [NSURL fileURLWithPath:path];
   session.outputFileType = AVFileTypeQuickTimeMovie;
@@ -251,6 +270,7 @@ RCT_EXPORT_METHOD(stopSession)
         completion(NO);
         break;
       case AVAssetExportSessionStatusCompleted: {
+        
         HighlightInfo *highlight = self.highlights[index];
         highlight.videoURL = session.outputURL;
         
@@ -262,6 +282,48 @@ RCT_EXPORT_METHOD(stopSession)
                           index:index + 1
                      completion:completion];
         }
+        
+        /*
+        NSArray *urls = @[session.outputURL, [NSURL fileURLWithPath:self.endingVideoPath]];
+        [VideoManager.sharedInstance mergeWithVideoURLs:urls
+                                               fileName:[NSString stringWithFormat:@"v%d.mp4", index]
+                                             completion:^(NSURL * _Nullable videoURL) {
+                                               if (videoURL != nil) {
+                                                 HighlightInfo *highlight = self.highlights[index];
+                                                 highlight.videoURL = videoURL;
+                                                 
+                                                 if (index == self.highlights.count - 1) {
+                                                   completion(YES);
+                                                 } else {
+                                                   [self createHighlight:videoURL
+                                                                basePath:basePath
+                                                                   index:index + 1
+                                                              completion:completion];
+                                                 }
+                                               } else {
+                                                 completion(NO);
+                                               }
+                                             }];
+        */
+//        [MKOVideoMerge mergeVideoFiles:urls
+//                        resultFileName:[NSString stringWithFormat:@"v%d.mp4", index]
+//                            completion:^(NSURL *mergedVideoFile, NSError *error) {
+//          if (error == nil && mergedVideoFile != nil) {
+//            HighlightInfo *highlight = self.highlights[index];
+//            highlight.videoURL = mergedVideoFile;
+//
+//            if (index == self.highlights.count - 1) {
+//              completion(YES);
+//            } else {
+//              [self createHighlight:videoURL
+//                           basePath:basePath
+//                              index:index + 1
+//                         completion:completion];
+//            }
+//          } else {
+//            completion(NO);
+//          }
+//        }];
       }
         break;
       default:
@@ -270,9 +332,64 @@ RCT_EXPORT_METHOD(stopSession)
   }];
 }
 
-+ (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size {
+- (void)createEndingVideoWithSize:(CGSize)size completion:(void (^)(BOOL))completion {
+  UIImage *bgImage = [CameraManager imageFromColor:[UIColor blackColor] size:size shouldScale:NO];
+  NSArray *images = @[[UIImage imageNamed:@"logo4"], [UIImage imageNamed:@"logo3"]];
+  
+  NSMutableArray *updatedImages = [NSMutableArray array];
+  for (UIImage *img in images) {
+    UIGraphicsBeginImageContext(size);
+    [bgImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    [img drawInRect:CGRectMake((size.width - img.size.width) * 0.5,
+                               (size.height - img.size.height) * 0.5,
+                               img.size.width,
+                               img.size.height)];
+    UIImage *newImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [updatedImages addObject:newImg];
+  }
+  
+  [VideoManager.sharedInstance generateWithImages:updatedImages
+                                             size:size
+                                       completion:^(NSURL * _Nullable videoURL) {
+                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (videoURL == nil) {
+                                             completion(NO);
+                                           } else {
+                                             NSLog(@"%@", videoURL);
+                                             self.endingVideoPath = videoURL.path;
+                                             completion(YES);
+                                           }
+                                         });
+                                       }];
+  
+  /*
+  EKMovieMaker * movieMaker = [[EKMovieMaker alloc] initWithImages:updatedImages];
+  movieMaker.movieSize = size;
+  movieMaker.frameDuration = 3.0f;
+  movieMaker.framesPerSecond = 30.0f;
+  
+  [movieMaker createMovieWithCompletion:^(NSString *videoPath) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      if (videoPath == nil) {
+        completion(NO);
+      } else {
+        NSLog(@"%@", videoPath);
+        self.endingVideoPath = videoPath;
+        completion(YES);
+      }
+    });
+  }];
+   */
+}
+
++ (UIImage *)imageFromColor:(UIColor *)color size:(CGSize)size shouldScale:(BOOL)shouldScale {
   CGRect rect = CGRectMake(0, 0, size.width, size.height);
-  UIGraphicsBeginImageContextWithOptions(rect.size, YES, [UIScreen mainScreen].scale);
+  if (shouldScale) {
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, [UIScreen mainScreen].scale);
+  } else {
+    UIGraphicsBeginImageContext(size);
+  }
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextSetFillColorWithColor(context, [color CGColor]);
   CGContextFillRect(context, rect);

@@ -10,6 +10,8 @@
 
 @interface HealthKitManager()
 
+@property (nonatomic, strong) HKWorkout *workout;
+
 @end
 
 @implementation HealthKitManager
@@ -21,8 +23,68 @@
         instance = [[HealthKitManager alloc] init];
         instance.healthStore = [[HKHealthStore alloc] init];
     });
-    
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraDidStopRecording:) name:@"camera_did_stop_recording" object:nil];
+  
     return instance;
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)cameraDidStopRecording:(NSNotification *)notification {
+  NSNumber *notificationNumber = (NSNumber*)notification.object;
+  NSTimeInterval timeInterval = notificationNumber.doubleValue;
+  
+  dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+  
+  NSInteger stepsCount = 0;
+  [self getStepsCountFromTimeInterval:timeInterval completion:^(NSInteger stepsCount, NSError *error) {
+    stepsCount = stepsCount;
+    dispatch_semaphore_signal(semaphore);
+  }];
+  
+  dispatch_semaphore_wait(semaphore, 15);
+  
+  NSInteger caloriesCount = [self getCaloriesCountFromTimeInterval:timeInterval];
+  NSInteger heartRate = 0;
+  [self getHeartRateMonitorValueWithTimeInterval:timeInterval completion:^(NSInteger heartRate, NSError *error) {
+    heartRate = heartRate;
+    dispatch_semaphore_signal(semaphore);
+  }];
+  
+  dispatch_semaphore_wait(semaphore, 15);
+  
+  [self saveWorkoutUsingTimeInterval:timeInterval stepsCount:stepsCount caloriesCount:caloriesCount heartRate:heartRate];
+}
+
+- (void)saveWorkoutUsingTimeInterval:(NSTimeInterval)timeInterval stepsCount: (NSInteger)stepsCount caloriesCount: (NSInteger)caloriesCount heartRate:(NSInteger)heartRate {
+ 
+  
+  
+  // =================================================
+  NSDate *startDate = [NSDate dateWithTimeIntervalSinceNow:-timeInterval];
+  NSDate *endDate = [NSDate date];
+  
+  
+  double distanceInMeters = stepsCount * 0.7;
+  HKQuantity *distanceQuantity = [HKQuantity quantityWithUnit:[HKUnit meterUnit] doubleValue:distanceInMeters];
+  HKQuantity *caloriesQuantity = [HKQuantity quantityWithUnit:[HKUnit calorieUnit] doubleValue:caloriesCount];
+  HKWorkout *workout = [HKWorkout workoutWithActivityType:HKWorkoutActivityTypeRunning
+                                                startDate:startDate
+                                                  endDate:endDate
+                                                 duration:timeInterval
+                                        totalEnergyBurned:caloriesQuantity
+                                            totalDistance:distanceQuantity
+                                                 metadata:nil];
+  
+  [self.healthStore saveObject:workout withCompletion:^(BOOL success, NSError *error) {
+    NSLog(@"Saving workout to healthStore - success: %@", success ? @"YES" : @"NO");
+    if (error != nil) {
+      NSLog(@"error: %@", error);
+    }
+  }];
 }
 
 - (void)getStepsCountFromTimeInterval:(NSTimeInterval)timeInterval completion: (void (^)(NSInteger stepsCount, NSError *error))completion {
@@ -84,7 +146,7 @@
     return totalCalories;
 }
 
-- (void)getHeartRateMonitorValueWithTimeInterval:(NSTimeInterval)timeInterval completion: (void (^)(NSInteger stepsCount, NSError *error))completion {
+- (void)getHeartRateMonitorValueWithTimeInterval:(NSTimeInterval)timeInterval completion: (void (^)(NSInteger heartRate, NSError *error))completion {
     uint32_t arc4Rand = arc4random();
     NSInteger beats = 90 + arc4Rand % (arc4Rand-90+1);  // MAX(arc4random() % 100, 91) ;
 //    (int)from + arc4random() % (to-from+1);

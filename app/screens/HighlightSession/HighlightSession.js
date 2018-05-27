@@ -22,6 +22,10 @@ class HighlightSession extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.dispatch({type: "SAVE_VIDEOS", payload: this.props.navigation.state.params.videos})
+  }
+
   renderVideos(){
     let videos = this.props.navigation.state.params.videos;
     return (
@@ -73,7 +77,9 @@ class HighlightSession extends Component {
 
     return (
       <View style={styles.container}>
-        <Header />
+        <Header onCancel={() => {
+          this.props.navigation.navigate('MyStage');
+        }} />
         <ScrollView pagingEnabled={false}>
           <Profiles />
           <View style={styles.sessionParams}>
@@ -123,4 +129,4 @@ class HighlightSession extends Component {
   }
 }
 
-export default HighlightSession;
+export default connect()(HighlightSession);

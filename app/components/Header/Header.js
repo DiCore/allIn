@@ -18,7 +18,7 @@ class Header extends Component {
           <Text style={styles.headerText}>Game title</Text>
         </View>
         <TouchableOpacity onPress={this.props.onCancel} style={styles.cancelButton}>
-          <Text style={styles.cancelText}>Cancel</Text>
+          <Text style={styles.cancelText}>Upload</Text>
         </TouchableOpacity>
       </View>
     );

@@ -18,19 +18,21 @@ class VideoItem extends Component {
     super(props);
     this.state = {
       pause: true,
-      videoPath: {uri: this.props.videoPath || ''}
+      videoPath: {uri: this.props.videoPath || ''},
+      firstRun: true,
     }
   }
 
   playVideo(){
-    this._video.presentFullscreenPlayer();
+    // this._video.presentFullscreenPlayer();
     this.setState({pause: false});
   }
 
   _onEndVideo(){
-    this.setState({videoPath: require('../../resources/test.mov')});
-    this.setState({pause: true}, () => {
-      this.setState({pause: false});
+    this.setState({videoPath: require('../../resources/videos/adidas.mov'), pause: true}, () => {
+      if(this.state.firstRun){
+        this.setState({pause: false, firstRun: false});
+      }
     });
     // this._video.dismissFullscreenPlayer();
   }

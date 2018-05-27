@@ -92,7 +92,7 @@ RCT_EXPORT_METHOD(generateHighlight:(int)seconds)
     CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-    UIImage *image = [CameraManager imageFromColor:color size:CameraManager.cameraView.bounds.size];
+    UIImage *image = [CameraManager imageFromColor:color size:CameraManager.cameraView.bounds.size shouldScale:NO];
     NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentPath = [searchPaths objectAtIndex:0];
     int index = (int)self.highlights.count - 1;

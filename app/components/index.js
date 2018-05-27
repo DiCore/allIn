@@ -6,6 +6,7 @@ import ListItem from './ListItem/ListItem';
 import Badge from './Badge/Badge';
 import Delimiter from './Delimiter/Delimiter';
 import VideoItem from './VideoItem/VideoItem';
+import VideoHighlight from './VideoHighlight/VideoHighlight';
 
 export {
   Tabs,
@@ -15,5 +16,6 @@ export {
   ListItem,
   Badge,
   Delimiter,
-  VideoItem
+  VideoItem,
+  VideoHighlight
 }

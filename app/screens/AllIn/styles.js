@@ -15,6 +15,25 @@ export default EStyleSheet.create({
     width: '100%',
     height:height - 60,
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+  },
+  headWrap: {
+    display: 'flex',
+    height: 60,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
+  },
+  headerImage: {
+    height: 30,
+  },
+  videosWrap: {
+    width: '100%',
+    height: height - 120,
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
 })

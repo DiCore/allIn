@@ -43,6 +43,12 @@ class Highlight extends Component {
         this.setState({images: newImages});
       }
     );
+    calendarManagerEmitter.addListener(
+      'EventHighlightsFinished',
+      (event) => {
+        this.props.navigation.navigate('HighlightSession', {videos: event})
+      }
+    );
   }
   render(){
     return (
@@ -63,7 +69,6 @@ class Highlight extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonItems} onPress={() => {
             CameraManager.stopSession()
-            this.props.navigation.navigate('HighlightSession', {videos: [{img: '', video: ''}]})
           }}>
           <Text>STOP</Text>
           </TouchableOpacity>

@@ -11,7 +11,7 @@
 @interface HealthKitManager()
 
 @property (nonatomic, strong) HKWorkout *workout;
-
+@property (nonatomic, strong) NSDate *startDate;
 @end
 
 @implementation HealthKitManager
@@ -24,7 +24,9 @@
         instance.healthStore = [[HKHealthStore alloc] init];
     });
   
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraDidStopRecording:) name:@"camera_did_stop_recording" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cameraDidStopRecording) name:@"camera_did_stop_recording" object:nil];
+  
+//  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recordingStarted:) name:@"recordingStarted" object:nil];
   
     return instance;
 }
@@ -33,13 +35,15 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)cameraDidStopRecording:(NSNotification *)notification {
-  NSNumber *notificationNumber = (NSNumber*)notification.object;
-  NSTimeInterval timeInterval = notificationNumber.doubleValue;
-  
+- (void)recordingStarted:(NSNotification*)notification {
+  self.startDate = [NSDate date];
+}
+
+- (void)cameraDidStopRecording {
+  NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.startDate];
   dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
-  
   NSInteger stepsCount = 0;
+  
   [self getStepsCountFromTimeInterval:timeInterval completion:^(NSInteger stepsCount, NSError *error) {
     stepsCount = stepsCount;
     dispatch_semaphore_signal(semaphore);

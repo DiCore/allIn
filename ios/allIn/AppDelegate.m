@@ -11,6 +11,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTRootViewDelegate.h>
 #import "WatchManager.h"
+#import "HealthKitManager.h"
 
 @interface AppDelegate () <RCTRootViewDelegate>
 
@@ -42,6 +43,8 @@
   rootViewController.view = self.rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  [HealthKitManager sharedManager]; // Initialize
 
   [self checkPermissions];
 

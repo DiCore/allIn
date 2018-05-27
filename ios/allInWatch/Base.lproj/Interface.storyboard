@@ -16,8 +16,7 @@
                     <items>
                         <group width="150" height="150" alignment="center" verticalAlignment="center" radius="75" id="uVO-QO-u7R">
                             <items>
-                                <button width="1" height="1" alignment="center" verticalAlignment="center" title="Create" id="0wT-Pv-2iA">
-                                    <color key="backgroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <button width="1" height="1" alignment="center" verticalAlignment="center" backgroundImage="redButton" id="0wT-Pv-2iA">
                                     <fontDescription key="font" type="system" pointSize="35"/>
                                     <connections>
                                         <action selector="userDidTapCreateButton" destination="AgC-eL-Hgc" id="WSV-9w-Dlh"/>

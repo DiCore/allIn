@@ -52,6 +52,8 @@
 		970B427F20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B427D20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m */; };
 		970B428520B997B10049C046 /* CaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B428420B997B10049C046 /* CaptureSessionCoordinator.m */; };
 		970B430C20BA24720049C046 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 970B430B20BA24720049C046 /* video.mp4 */; };
+		970B437D20BA57940049C046 /* EKMovieMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B437C20BA57940049C046 /* EKMovieMaker.m */; };
+		970B438020BA5BF90049C046 /* MKOVideoMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B437E20BA5BF90049C046 /* MKOVideoMerge.m */; };
 		9737FE3820B9753300C49529 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9737FE3720B9753300C49529 /* CameraManager.m */; };
 		974F645420B96EC10067DA39 /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645320B96EC10067DA39 /* CameraView.m */; };
 		974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 974F645920B96F390067DA39 /* CameraViewRCTViewManager.m */; };
@@ -456,6 +458,10 @@
 		970B428320B997B10049C046 /* CaptureSessionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionCoordinator.h; sourceTree = "<group>"; };
 		970B428420B997B10049C046 /* CaptureSessionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionCoordinator.m; sourceTree = "<group>"; };
 		970B430B20BA24720049C046 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		970B435420BA57940049C046 /* EKMovieMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKMovieMaker.h; sourceTree = "<group>"; };
+		970B437C20BA57940049C046 /* EKMovieMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKMovieMaker.m; sourceTree = "<group>"; };
+		970B437E20BA5BF90049C046 /* MKOVideoMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKOVideoMerge.m; sourceTree = "<group>"; };
+		970B437F20BA5BF90049C046 /* MKOVideoMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKOVideoMerge.h; sourceTree = "<group>"; };
 		9737FE3620B9753300C49529 /* CameraManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		9737FE3720B9753300C49529 /* CameraManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
 		974F645220B96EC10067DA39 /* CameraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
@@ -818,6 +824,10 @@
 		974F645120B96E740067DA39 /* CameraSupport */ = {
 			isa = PBXGroup;
 			children = (
+				970B437F20BA5BF90049C046 /* MKOVideoMerge.h */,
+				970B437E20BA5BF90049C046 /* MKOVideoMerge.m */,
+				970B435420BA57940049C046 /* EKMovieMaker.h */,
+				970B437C20BA57940049C046 /* EKMovieMaker.m */,
 				970B427E20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.h */,
 				970B427D20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m */,
 				970B428320B997B10049C046 /* CaptureSessionCoordinator.h */,
@@ -1501,6 +1511,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				970B438020BA5BF90049C046 /* MKOVideoMerge.m in Sources */,
+				970B437D20BA57940049C046 /* EKMovieMaker.m in Sources */,
 				974F645A20B96F390067DA39 /* CameraViewRCTViewManager.m in Sources */,
 				970B428520B997B10049C046 /* CaptureSessionCoordinator.m in Sources */,
 				970B427F20B9978E0049C046 /* CaptureSessionMovieFileOutputCoordinator.m in Sources */,

@@ -220,8 +220,8 @@ RCT_EXPORT_METHOD(stopSession)
   CGSize size = [[[videoAsset tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0] naturalSize];
   
   self.endingVideoPath = nil;
-  [self createEndingVideoWithSize:CGSizeMake(size.height, size.width) completion:^(BOOL result) {
-    if (result) {
+  //[self createEndingVideoWithSize:CGSizeMake(size.height, size.width) completion:^(BOOL result) {
+   // if (result) {
       NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
       NSString *documentPath = [searchPaths objectAtIndex:0];
       
@@ -229,10 +229,10 @@ RCT_EXPORT_METHOD(stopSession)
                    basePath:documentPath
                       index:0
                  completion:completion];
-    } else {
-      completion(NO);
-    }
-  }];
+//    } else {
+//      completion(NO);
+//    }
+//  }];
 }
 
 - (void)createHighlight:(NSURL *)videoURL
@@ -271,6 +271,19 @@ RCT_EXPORT_METHOD(stopSession)
         break;
       case AVAssetExportSessionStatusCompleted: {
         
+        HighlightInfo *highlight = self.highlights[index];
+        highlight.videoURL = session.outputURL;
+        
+        if (index == self.highlights.count - 1) {
+          completion(YES);
+        } else {
+          [self createHighlight:videoURL
+                       basePath:basePath
+                          index:index + 1
+                     completion:completion];
+        }
+        
+        /*
         NSArray *urls = @[session.outputURL, [NSURL fileURLWithPath:self.endingVideoPath]];
         [VideoManager.sharedInstance mergeWithVideoURLs:urls
                                                fileName:[NSString stringWithFormat:@"v%d.mp4", index]
@@ -291,6 +304,7 @@ RCT_EXPORT_METHOD(stopSession)
                                                  completion(NO);
                                                }
                                              }];
+        */
 //        [MKOVideoMerge mergeVideoFiles:urls
 //                        resultFileName:[NSString stringWithFormat:@"v%d.mp4", index]
 //                            completion:^(NSURL *mergedVideoFile, NSError *error) {

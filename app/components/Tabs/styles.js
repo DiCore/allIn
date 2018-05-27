@@ -15,10 +15,16 @@ export default EStyleSheet.create({
     bottom: 0,
     left: 0,
   },
+  tabText: {
+    color: 'white',
+    fontSize: 14,
+    fontFamily: "TeX Gyre Adventor",
+    paddingTop: 5,
+  },
   tabsWrap: {
     display: 'flex',
     width: '100%',
-    height:60,
+    height:80,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -28,7 +34,7 @@ export default EStyleSheet.create({
     width: width/3,
     height:60,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   tabImage: {
     width: width/3 - 10,

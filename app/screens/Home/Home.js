@@ -36,7 +36,7 @@ class Home extends Component {
               // this.props.dispatch({type: "LOADING_START"})
               this.props.navigation.navigate('Highlight');
             }}>
-            <Text style={{color: 'white'}}>CREATE</Text>
+              <Image source={require('../../resources/red-button.png')} defaultSource={require('../../resources/red-button.png')} style={styles.imageButton} resizeMode="contain" />
             </TouchableOpacity>
           </View>
         </View>

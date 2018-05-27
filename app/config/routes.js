@@ -29,6 +29,7 @@ const tabNavigator = createTabNavigator({
   tabBarPosition: "bottom",
   swipeEnabled: true,
   tabBarComponent: Tabs,
+  animationEnabled: true
 });
 
 const stackParentNavigator = createStackNavigator({

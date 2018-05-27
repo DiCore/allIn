@@ -170,6 +170,11 @@ RCT_EXPORT_METHOD(stopSession)
   [UIApplication sharedApplication].idleTimerDisabled = YES;
   
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRootViewResize) name:@"rootViewResize" object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(watchButtonTriggered) name:@"camera_button_tapped" object:nil];
+}
+
+- (void)watchButtonTriggered {
+  [self generateHighlight:10];
 }
 
 - (void)handleRootViewResize {
